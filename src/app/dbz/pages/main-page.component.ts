@@ -1,0 +1,28 @@
+import { Component } from '@angular/core';
+import { Character } from '../interfaces/character.interface';
+import { DbzService } from '../services/dbz.sevice';
+
+@Component({
+    selector: 'app-dbz-main-page',
+    templateUrl: './main-page.component.html'
+})
+
+export class MainPageComponent {
+    constructor(private dbzService: DbzService) { }
+
+    get characters(): Character[] {
+        return [...this.dbzService.characters];
+    }
+
+    /*     onNewCharacter(character: Character): void {
+            // const newCharacter: Character = { id: uuid(), ...character } // operador 'spread'
+            this.characters.push(character);
+        } */
+    onNewCharacter(character: Character) {
+        this.dbzService.addCharacter(character); // refactorizo
+    }
+
+    onDeleteId(id: string): void {
+        this.dbzService.deleteCharacter(id); // refactorizo
+    }
+}
